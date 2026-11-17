@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمات معرض الصعيدي للأدوات الصحية المجانية</title>
+    
+    <!-- أيقونة التطبيق -->
+    <link rel="icon" href="logo.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="logo.jpg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00ff66">
+
+    <!-- معاينة الواتساب -->
+    <meta property="og:title" content="خدمات معرض الصعيدي للأدوات الصحية المجانية">
+    <meta property="og:description" content="الساعة والتقويم الأبدي، حاسبة الأسعار، وطلب أقرب سباك - مسجد الرحمن، بشتيل، إمبابة">
+    <meta property="og:image" content="logo.jpg">
+    <meta property="og:type" content="website">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- الشاشة الأولى: الساعة الرئيسية والخدمات -->
+        <div id="mainClockScreen" class="screen active">
+            <header class="app-header">
+                <h1>معرض الصعيدي</h1>
+                <p>مسجد الرحمن - بشتيل - إمبابة</p>
+            </header>
+
+            <main class="clock-section">
+                <div class="clock-face" id="clockFace">
+                    <div class="glass-reflection"></div>
+                    <div class="ticks-container" id="ticksContainer"></div>
+
+                    <span class="num n12">١٢</span>
+                    <span class="num n1">١</span>
+                    <span class="num n2">٢</span>
+                    <span class="num n3">٣</span>
+                    <span class="num n4">٤</span>
+                    <span class="num n5">٥</span>
+                    <span class="num n6">٦</span>
+                    <span class="num n7">٧</span>
+                    <span class="num n8">٨</span>
+                    <span class="num n9">٩</span>
+                    <span class="num n10">١٠</span>
+                    <span class="num n11">١١</span>
+
+                    <div class="clock-logo">الصعيدي</div>
+
+                    <div class="hand hour" id="hourHand"></div>
+                    <div class="hand minute" id="minuteHand"></div>
+                    <div class="hand second" id="secondHand"></div>
+                    <div class="center-dot"></div>
+                </div>
+
+                <div class="triple-date-bar" id="tripleDateBar">
+                    <span id="miladiDate">جاري التحميل...</span>
+                </div>
+            </main>
+
+            <!-- الأزرار بالتوزيع الدقيق -->
+            <div class="action-buttons-layout">
+                <button class="nav-btn full-width-btn" onclick="switchScreen('calendarScreen')">
+                    <span class="icon">📅</span> ادخل التقويم
+                </button>
+
+                <div class="button-row">
+                    <a href="https://10neen.github.io/10neen-s3edy-calculator/" target="_blank" class="nav-btn-link">
+                        <span class="icon">🧮</span> احسب فاتورتك بنفسك
+                    </a>
+                    <a href="https://10neen.github.io/grob_els3ydy/" target="_blank" class="plumber-btn-grid">
+                        <span class="icon">🛠️</span> اتصل بأقرب سباك لمكانك
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- الشاشة الثانية: تقويم الصعيدي الأبدي -->
+        <div id="calendarScreen" class="screen">
+            <header class="app-header">
+                <h1>تقويم الصعيدي</h1>
+                <p>مسجد الرحمن - بشتيل - إمبابة</p>
+            </header>
+
+            <div class="calendar-sheet">
+                <div class="sheet-header-top">
+                    <span id="sheetHijriHeader" class="hijri-badge">هجري: جاري الجلب...</span>
+                </div>
+
+                <div class="sheet-body">
+                    <div id="sheetDayName" class="sheet-day-name">--</div>
+                    <div id="sheetDayNumber" class="sheet-day-number">--</div>
+                    <div id="sheetMonthYear" class="sheet-month-year">--</div>
+                </div>
+
+                <div class="sheet-header-bottom">
+                    <span id="sheetCopticHeader" class="coptic-badge">قبطي: 8 هاتور 1743 ق</span>
+                </div>
+            </div>
+
+            <div class="nav-buttons" style="margin-top: 20px;">
+                <button class="nav-btn return-btn" onclick="switchScreen('mainClockScreen')">
+                    <span>⬅️ العودة للرئيسية</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
