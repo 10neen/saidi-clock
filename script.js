@@ -1,10 +1,3 @@
-function switchScreen(screenId) {
-    document.querySelectorAll('.screen').forEach(screen => {
-        screen.classList.remove('active');
-    });
-    document.getElementById(screenId).classList.add('active');
-}
-
 function createClockTicks() {
     const container = document.getElementById('ticksContainer');
     container.innerHTML = '';
@@ -27,7 +20,39 @@ function createClockTicks() {
     }
 }
 
-async function fetchHijriDate() {
+function getInstantHijri(date) {
+    try {
+        return new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        }).format(date);
+    } catch (e) {
+        return "تقويم هجري";
+    }
+}
+
+function getInstantCoptic(date) {
+    try {
+        const formatter = new Intl.DateTimeFormat('ar-EG-u-ca-coptic', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+        let parts = formatter.formatToParts(date);
+        let day = '', month = '', year = '';
+        for (let p of parts) {
+            if (p.type === 'day') day = p.value;
+            if (p.type === 'month') month = p.value;
+            if (p.type === 'year') year = p.value;
+        }
+        return `${day} ${month} ${year} قبطي`;
+    } catch (e) {
+        return "التقويم القبطي";
+    }
+}
+
+async function syncEternalHijri() {
     try {
         const today = new Date();
         const dd = String(today.getDate()).padStart(2, '0');
@@ -39,12 +64,10 @@ async function fetchHijriDate() {
         
         if (data && data.data && data.data.hijri) {
             const h = data.data.hijri;
-            const hijriString = `هجري: ${h.day} ${h.month.ar} ${h.year} هـ`;
-            document.getElementById('sheetHijriHeader').innerText = hijriString;
+            const preciseHijri = `${h.day} ${h.month.ar} ${h.year} هـ`;
+            document.getElementById('hijriDateDisplay').innerText = `هجري: ${preciseHijri}`;
         }
-    } catch (error) {
-        document.getElementById('sheetHijriHeader').innerText = "هجري: متابعة حسابية نشطة";
-    }
+    } catch (error) {}
 }
 
 function updateClock() {
@@ -64,14 +87,15 @@ function updateClock() {
 
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const miladiString = now.toLocaleDateString('ar-EG', options);
-    document.getElementById('miladiDate').innerText = miladiString;
-
-    document.getElementById('sheetDayName').innerText = now.toLocaleDateString('ar-EG', { weekday: 'long' });
-    document.getElementById('sheetDayNumber').innerText = now.getDate();
-    document.getElementById('sheetMonthYear').innerText = now.toLocaleDateString('ar-EG', { month: 'long', year: 'numeric' });
+    const initialHijri = getInstantHijri(now);
+    const copticString = getInstantCoptic(now);
+    
+    document.getElementById('hijriDateDisplay').innerText = `هجري: ${initialHijri}`;
+    document.getElementById('miladiDateDisplay').innerText = `ميلادي: ${miladiString}`;
+    document.getElementById('copticDateDisplay').innerText = `قبطي: ${copticString}`;
 }
 
 createClockTicks();
-fetchHijriDate();
-setInterval(updateClock, 1000);
 updateClock();
+syncEternalHijri();
+setInterval(updateClock, 1000);
