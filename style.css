@@ -6,38 +6,34 @@
 }
 
 body {
-    background-color: #060606;
+    background: radial-gradient(circle at top, #14110f 0%, #030303 100%);
     color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     direction: rtl;
+    padding: 10px;
 }
 
 .app-container {
     width: 100%;
     max-width: 400px;
-    background-color: #101010;
-    border-radius: 24px;
-    box-shadow: 0 12px 40px rgba(0, 255, 102, 0.15);
-    border: 1px solid #222;
-    padding: 20px;
+    background: linear-gradient(160deg, rgba(20, 17, 15, 0.92) 0%, rgba(7, 6, 5, 0.96) 100%);
+    border-radius: 28px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(255, 215, 140, 0.15);
+    border: 1px solid rgba(212, 143, 56, 0.25);
+    padding: 18px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 570px;
 }
 
 .screen {
-    display: none;
+    display: flex;
     width: 100%;
     flex-direction: column;
     align-items: center;
-}
-
-.screen.active {
-    display: flex;
 }
 
 .app-header {
@@ -47,15 +43,16 @@ body {
 }
 
 .app-header h1 {
-    color: #00ff66;
+    color: #ffb74d;
     font-size: 23px;
-    font-weight: 700;
-    text-shadow: 0 0 12px rgba(0, 255, 102, 0.6);
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 15px rgba(255, 183, 77, 0.4);
 }
 
 .app-header p {
-    color: #888;
-    font-size: 12px;
+    color: #a39382;
+    font-size: 11px;
     margin-top: 2px;
 }
 
@@ -63,46 +60,94 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 6px 0;
+    margin: 2px 0;
     width: 100%;
 }
 
-.clock-face {
-    width: 235px;
-    height: 235px;
-    border: 3.5px solid #00ff66;
+/* الإطار البرونزي النحاسي للساعة (مرن ومحمي ضد المط تماماً) */
+.watch-case-bezel {
+    width: 276px;
+    height: 276px;
+    min-width: 276px;
+    min-height: 276px;
     border-radius: 50%;
-    position: relative;
-    box-shadow: 0 0 30px rgba(0, 255, 102, 0.3), inset 0 0 35px #000000;
-    background: radial-gradient(circle, #0d0d0d 0%, #020202 100%);
+    padding: 11px;
+    background: linear-gradient(145deg, #5c3a21 0%, #21130a 40%, #4a2d18 75%, #140b06 100%);
+    box-shadow: 
+        0 16px 30px rgba(0, 0, 0, 0.9),
+        0 0 22px rgba(212, 143, 56, 0.25),
+        inset 0 2px 5px rgba(255, 204, 128, 0.35),
+        inset 0 -4px 8px rgba(0, 0, 0, 0.95);
+    border: 1.5px solid #8c5833;
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: clockPulse 4s infinite alternate;
+    position: relative;
 }
 
-@keyframes clockPulse {
-    0% { box-shadow: 0 0 20px rgba(0, 255, 102, 0.2), inset 0 0 30px #000; }
-    100% { box-shadow: 0 0 35px rgba(0, 255, 102, 0.45), inset 0 0 35px #000; }
-}
-
-.glass-reflection {
+.watch-case-bezel::before {
+    content: '';
     position: absolute;
-    width: 100%;
-    height: 100%;
+    inset: 4px;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 50%);
+    border: 1px dashed rgba(255, 183, 77, 0.4);
     pointer-events: none;
-    z-index: 4;
+}
+
+.clock-face {
+    width: 254px;
+    height: 254px;
+    min-width: 254px;
+    min-height: 254px;
+    border: 2px solid #ffb74d;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 
+        inset 0 10px 25px rgba(0, 0, 0, 0.95),
+        inset 0 -5px 15px rgba(255, 183, 77, 0.15),
+        0 0 15px rgba(255, 183, 77, 0.25);
+    background: radial-gradient(circle at 50% 45%, #14110e 0%, #030201 85%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.sapphire-glass-dome {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 40%, rgba(0, 0, 0, 0.25) 100%);
+    box-shadow: inset 0 4px 12px rgba(255, 255, 255, 0.18);
+    pointer-events: none;
+    z-index: 8;
+}
+
+.glass-shine-streak {
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background: linear-gradient(115deg, rgba(255,255,255,0) 42%, rgba(255,255,255,0.1) 48%, rgba(255,255,255,0.02) 52%, rgba(255,255,255,0) 58%);
+    pointer-events: none;
+    z-index: 9;
+    animation: glassShimmer 7s infinite ease-in-out;
+}
+
+@keyframes glassShimmer {
+    0%, 100% { transform: translate(-8%, -8%) rotate(0deg); }
+    50% { transform: translate(8%, 8%) rotate(5deg); }
 }
 
 .clock-logo {
     position: absolute;
-    top: 34%;
+    top: 32%;
     font-size: 11px;
-    font-weight: bold;
-    color: rgba(0, 255, 102, 0.35);
-    letter-spacing: 2px;
+    font-weight: 800;
+    color: rgba(255, 183, 77, 0.45);
+    letter-spacing: 3px;
+    text-shadow: 0 1px 2px #000;
     z-index: 2;
 }
 
@@ -112,126 +157,147 @@ body {
     height: 100%;
     top: 0;
     left: 0;
+    z-index: 3;
 }
 
 .tick {
     position: absolute;
     left: 50%;
-    top: 4px;
-    transform-origin: 50% 111px;
-    border-radius: 2px;
+    top: 5px;
+    transform-origin: 50% 122px;
 }
 
 .tick.second-tick {
-    width: 1.5px;
-    height: 6px;
-    margin-left: -0.75px;
-    background-color: #f9ff00;
-    box-shadow: 0 0 5px #f9ff00;
-    opacity: 0.75;
+    width: 3px;
+    height: 3px;
+    margin-left: -1.5px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ffffff 0%, #ffd700 60%, #997a00 100%);
+    box-shadow: 0 0 4px rgba(255, 215, 0, 0.7);
 }
 
 .tick.hour-tick {
-    width: 3px;
-    height: 12px;
-    margin-left: -1.5px;
-    background-color: #00f3ff;
-    box-shadow: 0 0 8px #00f3ff;
+    width: 6px;
+    height: 9px;
+    margin-left: -3px;
+    border-radius: 2px;
+    background: linear-gradient(135deg, #ffffff 0%, #00f3ff 35%, #006680 70%, #80f9ff 100%);
+    border: 0.5px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 8px rgba(0, 243, 255, 0.8);
 }
 
 .tick.quarter-tick {
-    width: 4px;
-    height: 15px;
-    margin-left: -2px;
-    background-color: #ff2a6d;
-    box-shadow: 0 0 10px #ff2a6d;
+    width: 8px;
+    height: 12px;
+    margin-left: -4px;
+    clip-path: polygon(50% 0%, 100% 30%, 80% 100%, 20% 100%, 0% 30%);
+    background: linear-gradient(135deg, #ffffff 0%, #ff2a6d 35%, #800026 75%, #ff80aa 100%);
+    box-shadow: 0 0 10px rgba(255, 42, 109, 0.95);
 }
 
 .num {
     position: absolute;
-    font-size: 12px;
-    font-weight: bold;
-    color: #b8ffd2;
-    text-shadow: 0 0 6px rgba(0, 255, 102, 0.4);
-    z-index: 3;
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffecb3;
+    text-shadow: 0 2px 4px #000, 0 0 8px rgba(255, 183, 77, 0.4);
+    z-index: 4;
 }
-.n12 { top: 22px; left: 50%; transform: translateX(-50%); }
-.n1  { top: 32px; right: 65px; }
-.n2  { top: 65px; right: 32px; }
-.n3  { right: 22px; top: 50%; transform: translateY(-50%); }
-.n4  { bottom: 65px; right: 32px; }
-.n5  { bottom: 32px; right: 65px; }
-.n6  { bottom: 22px; left: 50%; transform: translateX(-50%); }
-.n7  { bottom: 32px; left: 61px; }
-.n8  { bottom: 65px; left: 32px; }
-.n9  { left: 22px; top: 50%; transform: translateY(-50%); }
-.n10 { top: 65px; left: 32px; }
-.n11 { top: 32px; left: 61px; }
+.n12 { top: 20px; left: 50%; transform: translateX(-50%); }
+.n1  { top: 31px; right: 68px; }
+.n2  { top: 68px; right: 31px; }
+.n3  { right: 20px; top: 50%; transform: translateY(-50%); }
+.n4  { bottom: 68px; right: 31px; }
+.n5  { bottom: 31px; right: 68px; }
+.n6  { bottom: 20px; left: 50%; transform: translateX(-50%); }
+.n7  { bottom: 31px; left: 65px; }
+.n8  { bottom: 68px; left: 31px; }
+.n9  { left: 20px; top: 50%; transform: translateY(-50%); }
+.n10 { top: 68px; left: 31px; }
+.n11 { top: 31px; left: 65px; }
 
 .hand {
     position: absolute;
     bottom: 50%;
     left: 50%;
     transform-origin: bottom center;
-    border-radius: 4px;
     z-index: 5;
+    filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.85));
 }
 
-/* عقرب الساعات (أطول وأتخن بكتير وواضح جداً) */
 .hour {
-    width: 8px;
-    height: 78px;
-    margin-left: -4px;
-    background-color: #00ff66;
-    box-shadow: 0 0 12px #00ff66;
+    width: 7.5px;
+    height: 74px;
+    margin-left: -3.75px;
+    background: linear-gradient(90deg, #cc8400 0%, #ffd27f 50%, #b37400 100%);
     clip-path: polygon(50% 0%, 100% 25%, 75% 100%, 25% 100%, 0% 25%);
 }
 
-/* عقرب الدقائق (طويل جداً وبارز وبسمك ممتاز جوه الحدود) */
 .minute {
-    width: 6px;
-    height: 102px;
-    margin-left: -3px;
-    background-color: #39ff88;
-    box-shadow: 0 0 12px #39ff88;
+    width: 5.5px;
+    height: 100px;
+    margin-left: -2.75px;
+    background: linear-gradient(90deg, #e69500 0%, #ffdf99 50%, #cc8400 100%);
     clip-path: polygon(50% 0%, 100% 20%, 70% 100%, 30% 100%, 0% 20%);
 }
 
-/* عقرب الثواني (رفيع وسريع زي ما هو عشان الشياكة) */
 .second {
-    width: 1.5px;
+    width: 1.8px;
     height: 108px;
-    margin-left: -0.75px;
+    margin-left: -0.9px;
     background-color: #ff3333;
-    box-shadow: 0 0 12px #ff3333;
+    box-shadow: 0 0 6px rgba(255, 51, 51, 0.8);
     z-index: 6;
     clip-path: polygon(50% 0%, 100% 10%, 60% 100%, 40% 100%, 0% 10%);
 }
 
-
-
 .center-dot {
-    width: 12px;
-    height: 12px;
-    background-color: #00ff66;
+    width: 13px;
+    height: 13px;
+    background: radial-gradient(circle at 35% 35%, #ffffff 0%, #ffb74d 45%, #805000 100%);
     border-radius: 50%;
     position: absolute;
-    z-index: 10;
-    box-shadow: 0 0 12px #00ff66;
-    border: 2px solid #000;
+    z-index: 7;
+    box-shadow: 0 2px 5px #000, 0 0 8px rgba(255, 183, 77, 0.6);
+    border: 1.5px solid #4d3000;
+}
+
+.glass-panel {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 183, 77, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
 }
 
 .triple-date-bar {
     margin-top: 8px;
-    font-size: 12px;
-    color: #00ff66;
-    background: #161616;
-    padding: 6px 14px;
-    border-radius: 18px;
-    border: 1px solid #282828;
+    padding: 7px 12px;
+    border-radius: 14px;
     text-align: center;
-    box-shadow: 0 0 10px rgba(0, 255, 102, 0.1);
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.date-row {
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffb74d;
+}
+
+.miladi-sub {
+    font-size: 11px;
+    color: #00f3ff;
+    font-weight: 600;
+}
+
+.coptic-sub {
+    font-size: 11px;
+    color: #f9ff00;
+    font-weight: 600;
 }
 
 .action-buttons-layout {
@@ -239,7 +305,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 7px;
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .full-width-btn {
@@ -252,111 +318,74 @@ body {
     width: 100%;
 }
 
-.nav-btn, .nav-btn-link, .plumber-btn-grid {
+.fb-btn {
+    background: linear-gradient(135deg, rgba(24, 119, 242, 0.85) 0%, rgba(0, 150, 255, 0.85) 100%) !important;
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.glass-btn {
     flex: 1;
-    background-color: #161616;
-    color: #00ff66;
-    border: 1px solid #00ff66;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.03) 50%, rgba(255, 183, 77, 0.06) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #ffb74d;
+    border: 1px solid rgba(255, 183, 77, 0.35);
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
     padding: 10px 6px;
     border-radius: 12px;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
     text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 6px rgba(0, 255, 102, 0.2);
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 5px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
-.plumber-btn-grid {
-    background: linear-gradient(135deg, #007bff, #00ff66);
+.glass-btn::after, .glass-btn-accent::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 45%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+}
+
+.glass-btn-accent {
+    flex: 1;
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.85) 0%, rgba(255, 183, 77, 0.85) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     color: #000;
-    border: none;
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
-}
-
-.nav-btn:hover, .nav-btn-link:hover {
-    background-color: #00ff66;
-    color: #000;
-    box-shadow: 0 0 12px rgba(0, 255, 102, 0.6);
-}
-
-.calendar-sheet {
-    width: 100%;
-    background: #151515;
-    border: 2px solid #00ff66;
-    border-radius: 18px;
-    padding: 25px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 0 25px rgba(0, 255, 102, 0.25);
-    margin-top: 15px;
-}
-
-.sheet-header-top {
-    width: 100%;
-    text-align: center;
-    font-size: 15px;
-    font-weight: bold;
-    color: #00f3ff;
-    border-bottom: 1px dashed #333;
-    padding-bottom: 12px;
-    margin-bottom: 15px;
-}
-
-.sheet-header-bottom {
-    width: 100%;
-    text-align: center;
-    font-size: 15px;
-    font-weight: bold;
-    color: #f9ff00;
-    border-top: 1px dashed #333;
-    padding-top: 12px;
-    margin-top: 15px;
-}
-
-.sheet-body {
-    text-align: center;
-    margin: 5px 0;
-    width: 100%;
-}
-
-.sheet-day-name {
-    font-size: 22px;
-    color: #f9ff00;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.sheet-day-number {
-    font-size: 80px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    padding: 10px 6px;
+    border-radius: 12px;
+    font-size: 12px;
     font-weight: 800;
-    color: #00ff66;
-    line-height: 1;
-    text-shadow: 0 0 20px rgba(0, 255, 102, 0.6);
-    margin: 8px 0;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
-.sheet-month-year {
-    font-size: 17px;
-    color: #eee;
-    margin-top: 8px;
-    font-weight: 600;
-}
-
-.return-btn {
-    background-color: #1a1a1a;
-    color: #ff2a6d;
-    border-color: #ff2a6d;
-    width: 100%;
-}
-.return-btn:hover {
-    background-color: #ff2a6d;
-    color: #000;
-    box-shadow: 0 0 15px rgba(255, 42, 109, 0.6);
+.glass-btn:hover {
+    background: linear-gradient(180deg, rgba(255, 183, 77, 0.25) 0%, rgba(255, 183, 77, 0.12) 100%);
+    border-color: #ffb74d;
+    transform: translateY(-1px);
 }
