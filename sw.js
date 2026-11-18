@@ -17,7 +17,7 @@ self.addEventListener('activate', (e) => {
     e.waitUntil(
         caches.keys().then((keyList) => {
             return Promise.all(keyList.map((key) => {
-                if (key !== 'saadi-store-v3') { // وهنا كمان إلى v3 عشان يحذف القديم
+                if (key !== 'saadi-store-v4') { // وهنا كمان إلى v3 عشان يحذف القديم
                     return caches.delete(key);
                 }
             }));
